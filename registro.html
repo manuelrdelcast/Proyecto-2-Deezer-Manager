@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deezer Manager - Buscador</title>
+    <title>Deezer Manager - Registro</title>
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
-        }
-        if (!localStorage.getItem('session_active')) {
-            window.location.href = 'index.html';
         }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    
     <script src="js/auth.js" defer></script>
-    <script src="js/api.js" defer></script>
-    <script src="js/search.js" defer></script>
     <script src="js/theme.js" defer></script>
 </head>
 <body>
@@ -32,11 +26,7 @@
             <h1 class="header__logo">Deezer<span>Manager</span></h1>
         </div>
         
-        <div class="header__controls">
-            <div class="search-bar">
-                <input type="text" id="searchInput" class="pm-form__input search-input" placeholder="Buscar artistas...">
-            </div>
-
+        <div class="theme-toggle-wrapper">
             <label class="theme-switch" for="btnTheme">
                 <input type="checkbox" id="btnTheme" />
                 <div class="slider">
@@ -60,20 +50,43 @@
                     </span>
                 </div>
             </label>
-            
-            <button id="logoutBtn" class="btn btn--danger btn--micro">Cerrar sesión</button>
         </div>
     </header>
 
-    <main class="main-content">
-        <div id="stateContainer">
-            <div id="emptyState" class="state-message">
-                <h2>¿Qué quieres escuchar hoy?</h2>
-                <p>Usa la barra superior para buscar a tus artistas favoritos.</p>
+    <main class="login-container">
+        <div class="form-card">
+            <div class="form-card__header">
+                <h2>Crear Cuenta</h2>
+                <p>Únete a la plataforma avanzada de gestión musical.</p>
+            </div>
+            
+            <form id="registerForm" class="pm-form">
+                <div class="pm-form__field">
+                    <label for="regName" class="pm-form__label">Nombre completo</label>
+                    <input type="text" id="regName" class="pm-form__input" placeholder="Ingresa tu nombre" required>
+                </div>
+
+                <div class="pm-form__field">
+                    <label for="regEmail" class="pm-form__label">Correo Electrónico</label>
+                    <input type="email" id="regEmail" class="pm-form__input" placeholder="ejemplo@email.com" required>
+                </div>
+
+                <div class="pm-form__field">
+                    <label for="regPassword" class="pm-form__label">Contraseña</label>
+                    <input type="password" id="regPassword" class="pm-form__input" placeholder="••••••••" required>
+                </div>
+
+                <div class="pm-form__actions">
+                    <button type="submit" id="submitRegBtn" class="btn btn--primary">
+                        Registrarse
+                    </button>
+                </div>
+            </form>
+            
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 500;">¿Ya tienes cuenta? Inicia sesión aquí</a>
             </div>
         </div>
-        
-        <section id="resultsContainer" class="results-grid"></section>
     </main>
 
 </body>

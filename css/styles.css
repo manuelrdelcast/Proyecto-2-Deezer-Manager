@@ -1,0 +1,560 @@
+/* ============================================================
+   VARIABLES DE DISEÑO Y PALETA DE COLORES (Estilo Deezer/Premium)
+   ============================================================ */
+:root {
+    --bg-global: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary: #8b5cf6;       /* Violeta moderno */
+    --primary-hover: #7c3aed;
+    --border-color: #e2e8f0;
+    --input-bg: #f1f5f9;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --radius-card: 16px;
+    --radius-input: 10px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Paleta del Modo Oscuro */
+html.dark {
+    --bg-global: #0f172a;     /* Slate oscuro */
+    --bg-card: #1e293b;       /* Slate intermedio */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #a78bfa;       /* Violeta neón suave */
+    --primary-hover: #c4b5fd;
+    --border-color: #334155;
+    --input-bg: #0f172a;
+    --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   RESET Y ESTILOS BASE
+   ============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-global);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   HEADER & SWITCH DE TEMA
+   ============================================================ */
+.header {
+    width: 100%;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.header__logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--primary);
+}
+
+.header__logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.header__logo span {
+    color: var(--primary);
+}
+
+/* Switch Deslizable Premium */
+.theme-toggle-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    inline-size: 60px;
+    block-size: 32px;
+    position: relative;
+    display: inline-block;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--bg-card);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    z-index: 2;
+}
+
+.theme-switch input:checked + .slider {
+    background-color: var(--primary);
+}
+
+.theme-switch input:checked + .slider:before {
+    transform: translateX(28px);
+}
+
+.icon {
+    font-size: 0.9rem;
+    z-index: 1;
+    user-select: none;
+}
+
+/* ============================================================
+   CONTENEDOR DE LOGIN & TARJETA
+   ============================================================ */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.form-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 2.5rem 2.25rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.form-card__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-card__header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.form-card__header p {
+    color: var(--text-muted);
+    font-size: 0.925rem;
+    line-height: 1.4;
+}
+
+/* ============================================================
+   FORMULARIOS e INPUTS
+   ============================================================ */
+.pm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.pm-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.pm-form__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+
+.pm-form__input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-input);
+    outline: none;
+    transition: var(--transition);
+}
+
+.pm-form__input:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-card);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+/* ============================================================
+   BOTONES Y SPINNER DE CARGA
+   ============================================================ */
+.pm-form__actions {
+    margin-top: 0.5rem;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.85rem;
+    font-family: inherit;
+    font-size: 0.975rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-input);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.btn--primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+/* Aplicamos los efectos hover y active SOLO si el botón NO está deshabilitado */
+.btn--primary:not(:disabled):hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+}
+
+.btn--primary:not(:disabled):active {
+    transform: translateY(0);
+}
+
+/* El estado deshabilitado ahora funciona sin necesidad de !important */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* ============================================================
+   CONTROLES DEL HEADER (Buscador, Tema y Salir)
+   ============================================================ */
+.header__controls {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-input {
+    width: 280px;
+    padding: 0.65rem 1.25rem;
+    border-radius: 20px; /* Bordes redondeados estilo píldora */
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    width: 320px; /* Pequeño efecto de expansión al hacer clic */
+}
+
+/* Modificadores para botones secundarios y pequeños */
+.btn--small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    width: auto;
+    border-radius: 8px;
+}
+
+.btn--secondary {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
+.btn--secondary:hover {
+    background-color: var(--input-bg);
+    border-color: var(--text-muted);
+}
+
+/* ============================================================
+   ESTADOS DEL BUSCADOR Y RESULTADOS
+   ============================================================ */
+.main-content {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.state-message {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.state-message h2 {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.state-message p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   DISEÑO RESPONSIVO (Media Queries)
+   ============================================================ */
+
+/* Pantallas medianas y Tablets (hasta 768px) */
+@media screen and (max-width: 768px) {
+    /* Reordenar el Header */
+    .header {
+        flex-direction: column;
+        padding: 1.25rem 1rem;
+        gap: 1.25rem;
+    }
+
+    .header__logo-container {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Controles y Buscador */
+    .header__controls {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Permite apilar si no hay espacio */
+        gap: 1rem;
+    }
+
+    .search-bar {
+        width: 100%;
+        order: 3; /* Mueve el buscador a su propia línea debajo de los botones */
+    }
+
+    .search-input {
+        width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .search-input:focus {
+        width: 100%; /* Evita que crezca y rompa la pantalla en móviles */
+    }
+
+    /* Ajustes para las Tarjetas de Formularios (Login/Registro) */
+    .login-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .form-card {
+        padding: 2rem 1.5rem; /* Reducir márgenes internos */
+        border-radius: 12px;
+    }
+
+    .form-card__header h2 {
+        font-size: 1.5rem; /* Letra un poco más pequeña */
+    }
+
+    /* Ajustes para los estados vacíos del buscador */
+    .state-message {
+        padding: 3rem 1rem;
+    }
+
+    .state-message h2 {
+        font-size: 1.35rem;
+    }
+}
+
+/* Pantallas pequeñas (Móviles en vertical - hasta 480px) */
+@media screen and (max-width: 480px) {
+    .header__controls {
+        justify-content: center; /* Centrar el botón de salir y el modo oscuro */
+    }
+
+    .btn--small {
+        width: 100%; /* El botón de salir ocupa todo el ancho */
+        text-align: center;
+    }
+    
+    .form-card__header h2 {
+        font-size: 1.35rem;
+    }
+    
+    .pm-form__input {
+        font-size: 1rem; /* Previene el auto-zoom en navegadores iOS (Safari) */
+    }
+}
+
+/* ============================================================
+   BOTÓN MICRO Y AJUSTES DE SVG
+   ============================================================ */
+
+/* Reducción drástica del tamaño para "Cerrar sesión" */
+.btn--micro {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    width: auto;
+    border-radius: 6px;
+    letter-spacing: 0.01em;
+}
+
+/* Alineación de los iconos SVG dentro del Switch */
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    user-select: none;
+}
+
+
+/* Color de la luna cuando el modo oscuro está activo */
+html.dark .icon--moon svg {
+    color: #f8fafc; /* Blanco brillante */
+}
+
+/* Convertimos el contenedor en un Grid */
+.results-grid {
+    display: grid;
+    /* Esto crea columnas que se ajustan solas (mínimo 250px por tarjeta) */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    width: 100%;
+}
+
+/* Ajustamos la tarjeta del artista para que se vea bien en Grid */
+.artist-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.artist-card:hover {
+    transform: translateY(-5px);
+}
+
+.artist-card__img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid var(--border-color);
+}
+
+.artist-card__info {
+    text-align: center;
+    width: 100%;
+}
+
+/* Estilo para el botón de cerrar sesión */
+.btn--danger {
+    background-color: transparent;
+    color: #ef4444; /* Rojo moderno */
+    border: 1px solid #ef4444;
+}
+
+.btn--danger:hover {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+/* Nuevo contenedor de estado para centrado vertical/horizontal */
+#stateContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Ocupa el 60% de la altura de la ventana */
+    width: 100%;
+}
+
+.state-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Asegura que el contenedor de estado colapse si no tiene contenido */
+#stateContainer:empty {
+    display: none;
+}
+
+/* Ajusta el margen superior del grid para que no empiece tan abajo */
+.results-grid {
+    margin-top: 1rem;
+}
