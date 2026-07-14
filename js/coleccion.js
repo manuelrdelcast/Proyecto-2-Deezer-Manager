@@ -42,10 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
         favoritosFiltrados.forEach(album => {
             const currentRating = parseInt(album.rating || 0);
 
+            // Generar el HTML de las 5 estrellas usando SVG interactivo
             let starsHTML = '';
             for (let i = 1; i <= 5; i++) {
                 starsHTML += `
-                    <span class="star ${i <= currentRating ? 'star--active' : ''}" data-value="${i}">★</span>
+                    <span class="star ${i <= currentRating ? 'star--active' : ''}" data-value="${i}" style="display: inline-flex; align-items: center; cursor: pointer;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </span>
                 `;
             }
 
@@ -63,13 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="album-details">
                         <h3>${album.title}</h3>
                         <p class="release-date">Artista: ${album.artist || 'Desconocido'}</p>
-                        <span class="badge-toggle">Ver canciones ▼</span>
+                        <span class="badge-toggle">
+                            Ver canciones 
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
                     </div>
                 </div>
 
                 <div class="album-actions-bar">
                     <button class="btn-favorite btn-favorite--active">
-                        ❤️ En favoritos
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg> En favoritos
                     </button>
                     <div class="star-rating">
                         ${starsHTML}
@@ -172,7 +184,7 @@ window.toggleTracks = function(albumId) {
                         <li class="track-item" id="track-${track.id}">
                             <span class="track-number">${idx + 1}</span>
                             
-                            <button class="btn-play-track" onclick="playTrack('${track.preview}', '${safeTitle}', '${artistName}', ${track.id})" title="Reproducir">
+                            <button class="btn-play-pill btn-play-track" onclick="playTrack('${track.preview}', '${safeTitle}', '${artistName}', ${track.id})" title="Reproducir">
                                 <svg class="play-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
@@ -187,7 +199,16 @@ window.toggleTracks = function(albumId) {
             .catch(err => {
                 console.error('Error cargando tracks:', err);
                 spinner.classList.add('hidden');
-                list.innerHTML = `<li class="track-item-error">⚠️ No se pudieron cargar las canciones.</li>`;
+                list.innerHTML = `
+                    <li class="track-item-error" style="display: flex; align-items: center; gap: 8px; color: #ef4444; padding: 1rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg> 
+                        No se pudieron cargar las canciones.
+                    </li>
+                `;
             });
     }
 };

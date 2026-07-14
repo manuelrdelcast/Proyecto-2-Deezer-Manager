@@ -14,9 +14,9 @@
             window.location.href = 'index.html';
         }
     </script>
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
     <!-- Encabezado de Navegación Unificado (Mismo diseño premium que el buscador) -->
     <header class="header">
         <div class="header__logo-container">
-            <svg class="logo-icon" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="currentColor">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
             </svg>
             <h1 class="header__logo">Deezer<span>Manager</span></h1>
@@ -32,8 +32,19 @@
         
     <div class="header__controls">
         <!-- Un solo botón para cada sección -->
-        <a href="coleccion.html" class="btn btn--primary btn--micro">📂 Mis Álbumes</a>
-        <a href="buscador.html" class="btn btn--secondary btn--micro">← Volver al buscador</a>
+        <a href="coleccion.html" class="btn btn--primary btn--micro">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Mis Álbumes
+        </a>
+        <a href="buscador.html" class="btn btn--secondary btn--micro">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Volver al buscador
+        </a>
 
         <!-- Switch de Tema -->
         <label class="theme-switch" for="btnTheme">

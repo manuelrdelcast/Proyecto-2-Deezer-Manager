@@ -624,15 +624,15 @@ html.dark .state-message {
 }
 
 /* ==========================================================================
-   DISEÑO DE FILAS DE CANCIONES UNIFICADO (ESTILO FOTO 1)
+   DISEÑO DE FILAS DE CANCIONES UNIFICADO (ADAPTATIVO CLARO/OSCURO)
    ========================================================================== */
 
-/* Contenedor de la fila (Sirve para artista y colección) */
+/* --- ESTILOS BASE (MODO CLARO) --- */
 .track-item {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.03); /* Fondo oscuro sutil */
-    border: 1px solid rgba(255, 255, 255, 0.06); /* Borde fino */
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     padding: 0.7rem 1.2rem;
     margin-bottom: 0.6rem;
     border-radius: 10px;
@@ -640,24 +640,23 @@ html.dark .state-message {
 }
 
 .track-item:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--input-bg);
+    border-color: #cbd5e1;
 }
 
-/* Número indicador de la izquierda */
 .track-number {
     font-size: 0.9rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.35);
-    width: 28px; /* Ancho fijo para que los botones queden perfectamente alineados verticalmente */
+    color: var(--text-muted);
+    width: 28px;
     text-align: left;
 }
 
 .btn-play-pill {
-    background-color: #a78bfa; /* Morado pastel/eléctrico de la foto */
+    background-color: #a78bfa; 
     color: #ffffff;
     border: none;
-    width: 46px;      /* Forma rectangular redondeada */
+    width: 46px;      
     height: 28px;
     border-radius: 8px;
     display: inline-flex;
@@ -669,7 +668,7 @@ html.dark .state-message {
 }
 
 .btn-play-pill:hover {
-    background-color: #8b5cf6; /* Tono un poco más intenso en hover */
+    background-color: #8b5cf6; 
     transform: scale(1.05);
 }
 
@@ -677,23 +676,44 @@ html.dark .state-message {
     transform: scale(0.95);
 }
 
-/* Texto de la canción */
 .track-name {
-    flex-grow: 1; /* Absorbe todo el espacio del centro para empujar la duración al final */
+    flex-grow: 1; 
     font-size: 0.95rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-main);
     letter-spacing: -0.01em;
     text-align: left;
 }
 
-/* Duración en el extremo derecho */
 .track-duration {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-variant-numeric: tabular-nums; /* Evita que los números bailen si cambian */
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums; 
     font-weight: 500;
     padding-left: 1rem;
+}
+
+/* --- MODO OSCURO (Mantiene el diseño exacto original) --- */
+html.dark .track-item {
+    background: rgba(255, 255, 255, 0.03); 
+    border-color: rgba(255, 255, 255, 0.06); 
+}
+
+html.dark .track-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .track-number {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+html.dark .track-name {
+    color: #ffffff;
+}
+
+html.dark .track-duration {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-play-track {
