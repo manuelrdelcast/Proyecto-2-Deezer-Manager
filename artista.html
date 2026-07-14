@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deezer Manager - Detalle del Artista</title>
+    <script>
+        // Prevenir destello en blanco si el usuario prefiere tema oscuro
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Control de protección de sesión
+        if (!localStorage.getItem('session_active')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Encabezado de Navegación Unificado (Mismo diseño premium que el buscador) -->
+    <header class="header">
+        <div class="header__logo-container">
+            <svg class="logo-icon" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <h1 class="header__logo">Deezer<span>Manager</span></h1>
+        </div>
+        
+    <div class="header__controls">
+        <!-- Un solo botón para cada sección -->
+        <a href="coleccion.html" class="btn btn--primary btn--micro">📂 Mis Álbumes</a>
+        <a href="buscador.html" class="btn btn--secondary btn--micro">← Volver al buscador</a>
+
+        <!-- Switch de Tema -->
+        <label class="theme-switch" for="btnTheme">
+            <input type="checkbox" id="btnTheme" />
+            <div class="slider">
+                <span class="icon icon--sun">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </span>
+                <span class="icon icon--moon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </span>
+            </div>
+        </label>
+    
+    <button id="logoutBtn" class="btn btn--danger btn--micro">Cerrar sesión</button>
+</div>
+    </header>
+
+    <!-- Contenedor Principal (Sincronizado con .main-content de tu CSS) -->
+    <main class="main-content">
+        
+        <!-- Panel de detalle del artista -->
+        <section id="artist-profile" class="artist-profile-section">
+            <div class="state-message">
+                <span class="btn-spinner" style="border-top-color: var(--primary); border-color: rgba(139, 92, 246, 0.3); width: 2rem; height: 2rem;"></span>
+                <p>Cargando información del artista...</p>
+            </div>
+        </section>
+
+        <!-- Presentación semántica de la discografía -->
+        <section class="discography-section">
+            <h2 style="margin-bottom: 1.5rem; font-weight: 700; letter-spacing: -0.02em;">Discografía Completa</h2>
+            <div id="albums-container" class="albums-grid">
+                <!-- Se generará dinámicamente mediante artista.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Reproductor integrado e inmediato -->
+    <footer class="player-footer">
+        <div class="player-track-info">
+            <p id="player-track-title" class="track-title">Ninguna canción seleccionada</p>
+            <p id="player-artist-name" class="artist-name">-</p>
+        </div>
+        <div class="player-controls">
+            <audio id="global-audio" controls autoplay></audio>
+        </div>
+    </footer>
+
+    <!-- Scripts del proyecto en orden secuencial de ejecución -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/artista.js"></script>
+</body>
+</html>

@@ -273,7 +273,7 @@ html.dark .icon--moon svg { color: #f8fafc; }
 .artist-card__info { text-align: center; width: 100%; }
 
 /* ============================================================
-   MENSAJES DE ESTADO
+   MENSAJES DE ESTADO Y SPINNING LOADER
    ============================================================ */
 #stateContainer {
     display: flex;
@@ -284,19 +284,491 @@ html.dark .icon--moon svg { color: #f8fafc; }
 }
 #stateContainer:empty { display: none; }
 
-.state-message {
-    text-align: center;
-    padding: 2rem;
-    color: var(--text-muted);
+/* ==========================================================================
+   VISTA DE COLECCIÓN MINIMALISTA Y ADAPTATIVA (CLARO/OSCURO)
+   ========================================================================== */
+
+/* Panel de Cabecera */
+.collection-header-panel {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+    padding: 2.5rem 0 1rem 0;
+}
+
+@media (min-width: 768px) {
+    .collection-header-panel {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+/* --- MODO CLARO (Por defecto) --- */
+
+.panel-title h2 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.4rem;
+    color: #111827; /* Gris muy oscuro casi negro */
+}
+
+.panel-title p {
+    color: #4b5563; /* Gris intermedio legible */
+    font-size: 0.95rem;
+}
+
+/* Barra de Filtros Contenedora */
+.filter-bar {
+    display: flex;
     align-items: center;
-    gap: 0.75rem;
-    max-width: 400px;
-    margin: 0 auto;
+    gap: 1.5rem;
+    background: #f3f4f6; /* Fondo gris claro en modo claro */
+    padding: 0.6rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.filter-control {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.filter-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+}
+
+/* Selector Premium Adaptable */
+.filter-select {
+    padding: 0.55rem 2.5rem 0.55rem 1.2rem; 
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff; /* Fondo blanco en modo claro */
+    color: #111827; /* Letras oscuras */
+    font-family: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Flecha dinámica: Usa una flecha oscura en modo claro */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center; 
+    background-size: 0.95rem; 
+}
+
+.filter-select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+/* Contador de álbumes */
+.collection-counter {
+    font-size: 0.88rem;
+    color: #4b5563;
+    border-left: 1px solid #d1d5db;
+    padding-left: 1.5rem;
+}
+
+.collection-counter strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* Línea divisoria elegante */
+.divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+    margin: 1rem 0 3rem 0;
+}
+
+/* Estado vacío centrado */
+.state-message {
+    text-align: center;
+    padding: 6rem 2rem;
+    color: #6b7280;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
+}
+
+
+/* --- MODO OSCURO (Sobreescritura cuando aplica .dark) --- */
+
+html.dark .panel-title h2 {
+    color: #ffffff;
+}
+
+html.dark .panel-title p {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+html.dark .filter-bar {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .filter-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+html.dark .filter-select {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: #111827; 
+    color: #ffffff;
+    /* Flecha blanca para el modo oscuro */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+}
+
+html.dark .collection-counter {
+    color: rgba(255, 255, 255, 0.5);
+    border-left-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .collection-counter strong {
+    color: #ffffff;
+}
+
+html.dark .divider {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+}
+
+html.dark .state-message {
+    color: rgba(255, 255, 255, 0.35);
 }
 .state-message h2 { color: var(--text-main); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
 .state-message p { font-size: 0.95rem; line-height: 1.5; }
+
+/* ============================================================
+   SISTEMA DE SPINNERS CORREGIDO (Evita la rotación de texto)
+   ============================================================ */
+
+/* Spinner para botones (Elementos vacíos) */
+.btn-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Spinner para textos de carga (Como el de las canciones) */
+.spinner-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 10px;
+}
+
+/* El círculo que gira se genera de forma aislada aquí */
+.spinner-small::before {
+    content: "";
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0; /* Evita que el círculo se deforme */
+}
+
+/* Animación de rotación pura */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Clase auxiliar para ocultar elementos */
+.hidden {
+    display: none !important;
+}
+
+/* ============================================================
+   ESTILOS ADICIONALES PARA DETALLES DEL ARTISTA (artista.html)
+   ============================================================ */
+.artist-profile-section {
+    margin-bottom: 3rem;
+}
+
+.artist-card-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.artist-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+}
+
+.artist-info-text h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.artist-info-text p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Grilla de Álbumes */
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.album-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.album-header-click {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition);
+}
+
+.album-header-click:hover {
+    background-color: var(--input-bg);
+}
+
+.album-cover {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.album-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.album-details h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.release-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.badge-toggle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: inline-block;
+    margin-top: 0.25rem;
+}
+
+/* Contenedor colapsable de Canciones */
+.tracks-list-container {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    padding: 1rem;
+    transition: var(--transition);
+}
+
+.tracks-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* ==========================================================================
+   DISEÑO DE FILAS DE CANCIONES UNIFICADO (ESTILO FOTO 1)
+   ========================================================================== */
+
+/* Contenedor de la fila (Sirve para artista y colección) */
+.track-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03); /* Fondo oscuro sutil */
+    border: 1px solid rgba(255, 255, 255, 0.06); /* Borde fino */
+    padding: 0.7rem 1.2rem;
+    margin-bottom: 0.6rem;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.track-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Número indicador de la izquierda */
+.track-number {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    width: 28px; /* Ancho fijo para que los botones queden perfectamente alineados verticalmente */
+    text-align: left;
+}
+
+.btn-play-pill {
+    background-color: #a78bfa; /* Morado pastel/eléctrico de la foto */
+    color: #ffffff;
+    border: none;
+    width: 46px;      /* Forma rectangular redondeada */
+    height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 1.2rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-play-pill:hover {
+    background-color: #8b5cf6; /* Tono un poco más intenso en hover */
+    transform: scale(1.05);
+}
+
+.btn-play-pill:active {
+    transform: scale(0.95);
+}
+
+/* Texto de la canción */
+.track-name {
+    flex-grow: 1; /* Absorbe todo el espacio del centro para empujar la duración al final */
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    text-align: left;
+}
+
+/* Duración en el extremo derecho */
+.track-duration {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-variant-numeric: tabular-nums; /* Evita que los números bailen si cambian */
+    font-weight: 500;
+    padding-left: 1rem;
+}
+
+.btn-play-track {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-play-track:hover {
+    background-color: var(--primary-hover);
+}
+
+/* REPRODUCTOR FLOTANTE INFERIOR (FOOTER) */
+.player-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: var(--transition);
+}
+
+body {
+    padding-bottom: 90px; /* Evita que el reproductor tape el contenido inferior */
+}
+
+.player-track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    max-width: 30%;
+}
+
+.track-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artist-name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-controls {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#global-audio {
+    width: 100%;
+    max-width: 500px;
+    height: 36px;
+    outline: none;
+}
 
 /* ============================================================
    DISEÑO RESPONSIVO (Media Queries)
@@ -318,6 +790,34 @@ html.dark .icon--moon svg { color: #f8fafc; }
 
     .state-message { padding: 3rem 1rem; }
     .state-message h2 { font-size: 1.35rem; }
+
+    /* Adaptación del detalle del artista */
+    .artist-card-horizontal {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    /* Adaptación del reproductor flotante */
+    .player-footer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        text-align: center;
+    }
+    .player-track-info {
+        max-width: 100%;
+    }
+    .player-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    #global-audio {
+        max-width: 100%;
+    }
+    body {
+        padding-bottom: 160px; /* Margen extra para el reproductor en móviles */
+    }
 }
 
 /* Pantallas pequeñas (Móviles en vertical - hasta 480px) */
@@ -325,5 +825,77 @@ html.dark .icon--moon svg { color: #f8fafc; }
     .header__controls { justify-content: center; }
     .btn--small { width: 100%; text-align: center; }
     .form-card__header h2 { font-size: 1.35rem; }
-    .pm-form__input { font-size: 1rem; /* Previene auto-zoom en iOS Safari */ }
+    .pm-form__input { font-size: 1rem; }
+}
+
+/* Contenedor de acciones del álbum integrado al fondo oscuro */
+.album-actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    /* Usamos un fondo ligeramente más oscuro/transparente para que herede el color de la tarjeta */
+    background-color: rgba(0, 0, 0, 0.15); 
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Botón de favoritos adaptable */
+.btn-favorite {
+    background: transparent;
+    /* Borde sutil transparente que queda bien tanto en claro como en oscuro */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: currentColor; /* Hereda el color de texto blanco de la tarjeta */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-favorite:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Estado activo: Resalta elegantemente en rojo */
+.btn-favorite--active {
+    background-color: rgba(239, 68, 68, 0.15);
+    border-color: #f87171;
+    color: #f87171;
+}
+
+.btn-favorite--active:hover {
+    background-color: rgba(239, 68, 68, 0.25);
+}
+
+/* Sistema de Estrellas */
+.star-rating {
+    display: flex;
+    gap: 3px;
+}
+
+.star-rating--disabled {
+    opacity: 0.25; /* Más opaco para que se note apagado sobre el fondo oscuro */
+    pointer-events: none;
+}
+
+.star {
+    font-size: 1.4rem;
+    /* Estrellas vacías semitransparentes para que no contrasten feo */
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.1s ease, color 0.1s ease;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+/* Estrellas encendidas con color ámbar nítido */
+.star--active {
+    color: #fbbf24; 
+    filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.4)); /* Pequeño brillo premium */
 }

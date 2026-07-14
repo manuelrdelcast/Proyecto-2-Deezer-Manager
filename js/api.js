@@ -26,3 +26,39 @@ async function fetchArtists(query) {
         return null; // Retornamos null para manejar el error de conexión en la vista
     }
 }
+
+async function obtenerDatosArtista(id) {
+    try {
+        const endpoint = `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API_BASE}/artist/${id}`)}`;
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('Error en la comunicación');
+        return await res.json();
+    } catch (error) {
+        console.error("Error al obtener artista:", error);
+        throw error;
+    }
+}
+
+async function obtenerAlbumesArtista(id) {
+    try {
+        const endpoint = `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API_BASE}/artist/${id}/albums`)}`;
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('Error en la comunicación');
+        return await res.json();
+    } catch (error) {
+        console.error("Error al obtener álbumes:", error);
+        throw error;
+    }
+}
+
+async function obtenerTracksAlbum(albumId) {
+    try {
+        const endpoint = `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API_BASE}/album/${albumId}/tracks`)}`;
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('Error en la comunicación');
+        return await res.json();
+    } catch (error) {
+        console.error("Error al obtener tracks:", error);
+        throw error;
+    }
+}
