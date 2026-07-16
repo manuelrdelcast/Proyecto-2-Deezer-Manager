@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deezer Manager - Mis Álbumes</title>
+    <script>
+        // Evita el parpadeo blanco si el modo oscuro está activo
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Protección de rutas y verificación de sesión
+        if (!localStorage.getItem('session_active')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Encabezado de Navegación Unificado -->
+    <header class="header">
+        <div class="header__logo-container">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <h1 class="header__logo">Deezer<span>Manager</span></h1>
+        </div>
+        
+        <div class="header__controls">
+            <!-- Botón para regresar al buscador principal -->
+            <a href="buscador.html" class="btn btn--secondary btn--micro">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Volver al buscador
+            </a>
+
+            <!-- Switch Deslizable de Tema Claro/Oscuro -->
+            <label class="theme-switch" for="btnTheme">
+                <input type="checkbox" id="btnTheme" />
+                <div class="slider">
+                    <span class="icon icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </span>
+                    <span class="icon icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </span>
+                </div>
+            </label>
+            
+            <button id="logoutBtn" class="btn btn--danger btn--micro">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal de la Colección -->
+    <main class="main-content">
+        
+        <!-- Bloque de Cabecera Interna y Filtros -->
+        <section class="collection-header-panel">
+            <div class="panel-title">
+                <h2>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 8px;">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Mi Colección Privada
+                </h2>
+                <p>Visualiza y segmenta tus álbumes guardados por nivel de preferencia.</p>
+            </div>
+
+            <!-- Interfaz del sistema de Filtrado Dinámico -->
+            <div class="filter-bar">
+                <div class="filter-control">
+                    <label for="select-rating" class="filter-label">Segmentar por estrellas:</label>
+                    <select id="select-rating" class="filter-select">
+                        <option value="all">
+                            <!-- Star icon (Ver todo) -->
+                            &#9733; Ver todo el catálogo
+                        </option>
+                        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                        <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                        <option value="3">&#9733;&#9733;&#9733;</option>
+                        <option value="2">&#9733;&#9733;</option>
+                        <option value="1">&#9733;</option>
+                        <option value="0">
+                            <!-- X icon (Sin calificar) -->
+                            &#10005; Sin calificar
+                        </option>
+                    </select>
+                </div>
+                <div class="collection-counter">
+                    Álbumes en pantalla: <strong id="counter-value">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Grid de visualización dinámica de Álbumes Guardados -->
+        <section class="collection-display">
+            <div id="collection-container" class="albums-grid">
+                <!-- Se inyectará el HTML dinámico de tarjetas desde coleccion.js -->
+                <div class="state-message">
+                    <p>No has añadido álbumes a tu biblioteca aún.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Barra de Reproducción Global Integrada -->
+    <footer class="player-footer">
+        <div class="player-track-info">
+            <p id="player-track-title" class="track-title">Ninguna canción seleccionada</p>
+            <p id="player-artist-name" class="artist-name">-</p>
+        </div>
+        <div class="player-controls">
+            <audio id="global-audio" controls autoplay></audio>
+        </div>
+    </footer>
+
+    <!-- Cadena de carga de scripts ordenados por dependencia de memoria -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/storage.js"></script> <!-- Administra el acceso a favoritos -->
+    <script src="js/player.js"></script>  <!-- Habilita control multimedia si es necesario -->
+    <script src="js/coleccion.js"></script> <!-- Código core de renderizado y filtros -->
+</body>
+</html>
