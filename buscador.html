@@ -76,5 +76,10 @@
         <section id="resultsContainer" class="results-grid"></section>
     </main>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+    </script>
 </body>
 </html>

@@ -10,20 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent.trim();
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span class="btn-spinner" style="border-top-color: var(--primary); border-color: rgba(139, 92, 246, 0.3); width: 2rem; height: 2rem;"></span>`;
+
             const email = document.getElementById('email').value.trim().toLowerCase();
             const password = document.getElementById('password').value;
-            
-            const users = JSON.parse(localStorage.getItem('users'));
-            const validUser = users.find(user => user.email === email && user.password === password);
 
-            if (validUser) {
-                localStorage.setItem('session_active', 'true');
-                localStorage.setItem('logged_user', JSON.stringify({ name: validUser.name, email: validUser.email }));
-                window.location.href = 'buscador.html';
-            } else {
-                alert('Credenciales incorrectas. Verifica tu correo y contraseña.');
-            }
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('users'));
+                const validUser = users.find(user => user.email === email && user.password === password);
+
+                if (validUser) {
+                    localStorage.setItem('session_active', 'true');
+                    localStorage.setItem('logged_user', JSON.stringify({ name: validUser.name, email: validUser.email }));
+                    window.location.href = 'buscador.html';
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    alert('Credenciales incorrectas. Verifica tu correo y contraseña.');
+                }
+            }, 800);
         });
     }
 

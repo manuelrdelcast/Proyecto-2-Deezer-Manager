@@ -236,7 +236,20 @@ html.dark .icon--moon svg { color: #f8fafc; }
 /* Modificadores de tamaño */
 .btn--small { padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; border-radius: 8px; }
 .btn--micro { padding: 0.35rem 0.85rem; font-size: 0.78rem; font-weight: 500; width: auto; border-radius: 6px; letter-spacing: 0.01em; }
+/* Botón con spinner de carga */
+.btn-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
 
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 /* ============================================================
    CONTENIDO PRINCIPAL Y GRID DE RESULTADOS
    ============================================================ */
@@ -304,13 +317,19 @@ html.dark .icon--moon svg { color: #f8fafc; }
 
 /* Pantallas medianas y Tablets (hasta 768px) */
 @media screen and (max-width: 768px) {
-    .header { flex-direction: column; padding: 1.25rem 1rem; gap: 1.25rem; }
+    .header { flex-direction: column; flex-wrap: wrap; padding: 1.25rem 1rem; gap: 1.25rem; }
     .header__logo-container { width: 100%; justify-content: center; }
     
-    .header__controls { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .search-bar { width: 100%; order: 3; }
-    .search-input { width: 100%; }
+    .header__controls { width: 100%; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .search-bar { width: 100%; flex: 1 1 100%; min-width: 0; order: 3; }
+    .search-input { width: 100%; min-width: 0; max-width: 100%; }
     .search-input:focus { width: 100%; }
+
+    .main-content { padding: 2rem 1rem; }
+
+    .results-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 0; }
+    .artist-card { width: 100%; min-width: 0; overflow: hidden; }
+    .artist-card__img { width: 100%; max-width: 180px; height: auto; aspect-ratio: 1 / 1; }
 
     .login-container { padding: 1.5rem 1rem; }
     .form-card { padding: 2rem 1.5rem; border-radius: 12px; }
@@ -322,7 +341,15 @@ html.dark .icon--moon svg { color: #f8fafc; }
 
 /* Pantallas pequeñas (Móviles en vertical - hasta 480px) */
 @media screen and (max-width: 480px) {
-    .header__controls { justify-content: center; }
+    .header__controls { justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+    .search-bar { flex: 1 1 100%; min-width: 0; }
+    .search-input { width: 100%; min-width: 0; max-width: 100%; }
+
+    .main-content { padding: 1.5rem 0.75rem; }
+
+    .results-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .artist-card__img { max-width: 100%; width: min(180px, 100%); height: auto; aspect-ratio: 1 / 1; }
+
     .btn--small { width: 100%; text-align: center; }
     .form-card__header h2 { font-size: 1.35rem; }
     .pm-form__input { font-size: 1rem; /* Previene auto-zoom en iOS Safari */ }
