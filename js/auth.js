@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalText = submitBtn.textContent.trim();
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span class="btn-spinner" style="border-top-color: var(--primary); border-color: rgba(139, 92, 246, 0.3); width: 2rem; height: 2rem;"></span>`;
+            submitBtn.innerHTML = `<span class="btn-spinner"></span>`;
 
             const email = document.getElementById('email').value.trim().toLowerCase();
             const password = document.getElementById('password').value;
@@ -43,21 +43,34 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
+            // CORRECCIÓN: Se agregó la lógica del botón y el spinner
+            const submitBtn = registerForm.querySelector('button[type="submit"]') || document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent.trim();
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span class="btn-spinner"></span>`;
+
+            
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim().toLowerCase();
             const password = document.getElementById('regPassword').value;
 
-            const users = JSON.parse(localStorage.getItem('users'));
-            const userExists = users.find(user => user.email === email);
+            // CORRECCIÓN: Se agregó el setTimeout para que el spinner sea visible
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('users'));
+                const userExists = users.find(user => user.email === email);
 
-            if (userExists) {
-                alert('Este correo electrónico ya está registrado.');
-            } else {
-                users.push({ name, email, password });
-                localStorage.setItem('users', JSON.stringify(users));
-                alert('¡Registro exitoso! Redireccionando...');
-                window.location.href = 'index.html';
-            }
+                if (userExists) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    alert('Este correo electrónico ya está registrado.');
+                } else {
+                    users.push({ name, email, password });
+                    localStorage.setItem('users', JSON.stringify(users));
+                    alert('¡Registro exitoso! Redireccionando...');
+                    window.location.href = 'index.html';
+                }
+            }, 800);
         });
     }
 

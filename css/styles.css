@@ -258,13 +258,14 @@ div[style*="position: relative"] > .pm-form__input {
 /* Modificadores de tamaño */
 .btn--small { padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; border-radius: 8px; }
 .btn--micro { padding: 0.35rem 0.85rem; font-size: 0.78rem; font-weight: 500; width: auto; border-radius: 6px; letter-spacing: 0.01em; }
-/* Botón con spinner de carga */
 .btn-spinner {
     display: inline-block;
     width: 1.5rem;
     height: 1.5rem;
-    border: 3px solid rgba(139, 92, 246, 0.3);
-    border-top-color: var(--primary);
+    /* Anillo base en blanco semitransparente para contrastar con el botón */
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    /* Parte que gira en blanco sólido y brillante */
+    border-top-color: #ffffff;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -486,20 +487,7 @@ html.dark .state-message {
 .state-message h2 { color: var(--text-main); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
 .state-message p { font-size: 0.95rem; line-height: 1.5; }
 
-/* ============================================================
-   SISTEMA DE SPINNERS CORREGIDO (Evita la rotación de texto)
-   ============================================================ */
 
-/* Spinner para botones (Elementos vacíos) */
-.btn-spinner {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid rgba(139, 92, 246, 0.2);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
 
 /* Spinner para textos de carga (Como el de las canciones) */
 .spinner-small {
