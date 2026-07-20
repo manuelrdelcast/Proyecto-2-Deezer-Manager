@@ -1,5 +1,3 @@
-// js/player.js
-
 const globalAudio = document.getElementById('global-audio');
 const playerTrackTitle = document.getElementById('player-track-title');
 const playerArtistName = document.getElementById('player-artist-name');

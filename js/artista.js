@@ -1,5 +1,3 @@
-// js/artista.js
-
 const urlParams = new URLSearchParams(window.location.search);
 const artistId = urlParams.get('id');
 
